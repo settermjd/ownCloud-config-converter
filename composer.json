@@ -1,4 +1,24 @@
 {
+    "name":    "owncloud/ownCloud-config-converter",
+    "type":    "library",
+    "license": "MIT",
+    "authors": [
+        {"name": "Morris Jobke", "email": "hey@morrisjobke.de"},
+        {"name": "Matthew Setter", "email": "msetter@owncloud.com"}
+    ],
+    "autoload": {
+        "psr-4": {
+            "ConfigConverter\\": "src/ConfigConverter/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ConfigConverterTest\\": "test/ConfigConverterTest/"
+        }
+    },
+    "require": {
+        "php": ">=5.6"
+    },
     "require": {
         "phpdocumentor/reflection-docblock": "~2.0"
     }
