@@ -1,37 +1,40 @@
 #!/bin/sh
 
-currentDir=$(pwd)
+## ----------------------------------------------------------------- ##
+BRANCHES=( stable9 stable9.1 master )
+CURRENT_DIR=$(pwd)
+FILE_PATH=/admin_manual/configuration_server/
+OUTPUT_BASE_DIR=/tmp/owncloud-documentation
+REPOSITORY=git@github.com:owncloud/documentation.git
+REPOSITORY_BASE_URL=https://raw.githubusercontent.com/owncloud/core
+## ----------------------------------------------------------------- ##
 
-if [[ -d /tmp/nextcloud-documentation ]]
+if [[ -d $OUTPUT_BASE_DIR ]]
 then
-	rm -rf /tmp/nextcloud-documentation
+    rm -rf $OUTPUT_BASE_DIR
 fi
 
-# fetch documentation repo
-git clone -q git@github.com:nextcloud/documentation.git /tmp/nextcloud-documentation
-cd /tmp/nextcloud-documentation
+git clone -q $REPOSITORY $OUTPUT_BASE_DIR
+cd $OUTPUT_BASE_DIR
 
-for branch in stable9 master
+for BRANCH in $BRANCHES
 do
-	git checkout -q $branch
-	cd $currentDir
+    git checkout -q $BRANCH
+    cd $CURRENT_DIR
 
-	# download current version of config.sample.php
-	curl -sS -o /tmp/config.sample.php https://raw.githubusercontent.com/nextcloud/server/$branch/config/config.sample.php
+    curl -sS -o "/tmp/config.sample.php" "${REPOSITORY_BASE_URL}/$BRANCH/config/config.sample.php"
 
-	# use that to generate the documentation
-	php convert.php --input-file=/tmp/config.sample.php --output-file=/tmp/nextcloud-documentation/admin_manual/configuration_server/config_sample_php_parameters.rst
+    php convert.php config:convert \
+        --input-file="/tmp/config.sample.php" \
+        --output-file="${OUTPUT_BASE_DIR}${FILE_PATH}config_sample_php_parameters.rst"
 
-	cd /tmp/nextcloud-documentation
-	# invokes an output if something has changed
-	status=$(git status -s)
+    cd "${OUTPUT_BASE_DIR}"
 
-	if [ -n "$status" ]; then
-		echo "Push $branch"
-		git commit -qam 'generate documentation from config.sample.php'
-		git push
-	fi
+    if [ -n "$(git status -s)" ]; then
+        echo "Push $BRANCH"
+        git commit -qam 'generate documentation from config.sample.php'
+        git push
+    fi
 
-	# cleanup
-	rm -rf /tmp/config.sample.php
+    rm -rf "/tmp/config.sample.php"
 done

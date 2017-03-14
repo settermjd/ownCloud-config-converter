@@ -822,14 +822,6 @@ indicates if a Web server can write files to that folder.
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-::
-
-	'appcodechecker' => true,
-
-Checks an app before install whether it uses private APIs instead of the
-proper public APIs. If this is set to true it will only allow to install or
-enable apps that pass this check.
-
 
 
 
