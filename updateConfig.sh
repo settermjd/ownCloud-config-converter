@@ -76,7 +76,8 @@ function setup()
 
 function cleanup()
 {
-  rm -f $LOCKFILE
+  echo "Removing lock file."
+  rm -vf $LOCKFILE
 }
 
 ##
