@@ -49,6 +49,7 @@ DOCUMENTATION_BRANCH=
 FILE_PATH=admin_manual/configuration/server
 LOCAL_EXPORT_ONLY=false
 LOCKFILE=process.lock
+LOG_FILE=output.log
 OUTPUT_BASE_DIR=/tmp/owncloud-documentation
 REPOSITORY_BASE_URL=https://raw.githubusercontent.com/owncloud/core
 VERBOSE=false
@@ -185,15 +186,53 @@ function update_branches()
 ## well as removal of the lockfile if the script is abnormally terminated.
 ##
 if [ ! -e $LOCKFILE ]; then
-    trap "rm -f $LOCKFILE; exit" INT TERM EXIT
-    touch $LOCKFILE
-    script_setup
-    update_branches
-    rm $LOCKFILE
-    trap - INT TERM EXIT
+  touch $LOCKFILE
+  trap cleanup INT TERM EXIT
+
+  setup
+
+  while getopts "hlvd:c:" arg; do
+    case "${arg}" in
+      l)
+        LOCAL_EXPORT_ONLY=true
+        ;;
+      v)
+        VERBOSE=true
+        ;;
+      c)
+        CORE_BRANCH="$OPTARG"
+        ;;
+      d)
+        DOCUMENTATION_BRANCH="$OPTARG"
+        ;;
+      h) 
+        usage
+        exit
+        ;;
+    esac
+  done
+  shift $((OPTIND-1))
+
+  if [ "$CORE_BRANCH" ] || [ "$DOCUMENTATION_BRANCH" ]
+  then 
+    if [ -z "$CORE_BRANCH" ] || [ -z "$DOCUMENTATION_BRANCH" ]
+    then
+      echo "You need to specify both the core and documentation branches, or neither."
+      exit 0;
+    else 
+      clone_documentation_repo
+      update_branch "$DOCUMENTATION_BRANCH" "$CORE_BRANCH"
+    fi
+  fi
+
+  if [ -z "$CORE_BRANCH" ] && [ -z "$DOCUMENTATION_BRANCH" ]
+  then
+    clone_documentation_repo
+    update_branches "$LOCAL_EXPORT_ONLY"
+  fi
+
+  cleanup
+
 else
-   echo "Conversion script is already running"
+  echo "Conversion script is already running"
 fi
-
-
-
