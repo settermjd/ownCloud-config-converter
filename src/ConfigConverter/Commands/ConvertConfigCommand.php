@@ -33,7 +33,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class ConvertConfigCommand
- * It extracts the code comments out of ownCloud's config/config.sample.php and creates a RST document.
+ * It extracts the code comments out of ownCloud's config/config.sample.php and creates an RST document.
  *
  * @package ConfigConverter\Commands
  */
@@ -210,7 +210,7 @@ class ConvertConfigCommand extends Command
                 $RSTRepresentation .= "\n::\n\n";
                 // trim whitespace
                 $code = trim($code);
-                // intend every line by an tab - also trim whitespace
+                // indent every line by an tab - also trim whitespace
                 // (for example: empty lines at the end)
                 foreach (explode("\n", trim($code)) as $line) {
                     $RSTRepresentation .= "\t" . $line . "\n";
