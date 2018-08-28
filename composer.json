@@ -44,17 +44,5 @@
         "phpunit/phpunit": "^7.3",
         "squizlabs/php_codesniffer": "*",
         "symfony/framework-bundle": "^4.1"
-    },
-    "scripts": {
-        "check": [
-            "@cs-check",
-            "@test",
-            "@analyze"
-        ],
-        "analyze": "vendor/bin/phpstan analyze -l max ./src ./config",
-        "cs-check": "phpcs",
-        "cs-fix": "phpcbf",
-        "test": "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     }
 }
