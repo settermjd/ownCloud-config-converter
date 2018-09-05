@@ -32,9 +32,12 @@
 
 require 'vendor/autoload.php';
 
-use Symfony\Component\Console\Application;
 use ConfigConverter\Commands\ConvertConfigCommand;
+use ConfigConverter\Commands\ConvertConfigToAsciiDocFormatCommand;
+use Symfony\Component\Console\Application;
 
-$application = new Application('ownCloud-config-converter', '0.2.0');
+$application = new Application('ownCloud-config-converter', '0.3.0');
 $application->add(new ConvertConfigCommand());
+$application->add(new ConvertConfigToAsciiDocFormatCommand());
+
 $application->run();
