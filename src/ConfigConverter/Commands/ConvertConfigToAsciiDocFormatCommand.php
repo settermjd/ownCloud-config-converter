@@ -86,8 +86,7 @@ class ConvertConfigToAsciiDocFormatCommand extends Command
     {
         $this->convertFile(
             $input->getOption('input-file'),
-            $input->getOption('output-file'),
-            $input->getOption('tag')
+            $input->getOption('output-file')
         );
     }
 
@@ -126,7 +125,7 @@ class ConvertConfigToAsciiDocFormatCommand extends Command
     }
 
     /**
-     * @param $content
+     * @param string $content
      * @return array
      */
     protected function extractCoreContent(string $content) : array
@@ -141,25 +140,24 @@ class ConvertConfigToAsciiDocFormatCommand extends Command
      *
      * @param string $inputFile
      * @param string $outputFile
-     * @param string $tag
      * returns string
      */
     public function convertFile(string $inputFile, string $outputFile)
     {
         $templateData = [];
-        $blocks = $this->extractCoreContent(file_get_contents($inputFile));
+        $contents = (string) file_get_contents($inputFile);
+        $blocks = $this->extractCoreContent($contents);
 
         foreach ($blocks as $block) {
-            $templateData = $this->parseBlock($block, $templateData);
+            $templateData = $this->parseDocBlock($block, $templateData);
         }
 
         $this->writeOutputFile($outputFile, $templateData);
     }
 
     /**
-     * @param $docBlock
-     * @param $isSectionHeader
-     * @param $codeBlock
+     * @param string $docBlock
+     * @param string $codeBlock
      * @return array
      */
     public function buildRowItem(string $docBlock, string $codeBlock = null) : array
@@ -181,8 +179,8 @@ class ConvertConfigToAsciiDocFormatCommand extends Command
     }
 
     /**
-     * @param $outputFile
-     * @param $templateData
+     * @param string $outputFile
+     * @param array $templateData
      */
     protected function writeOutputFile(string $outputFile, array $templateData)
     {
@@ -193,8 +191,8 @@ class ConvertConfigToAsciiDocFormatCommand extends Command
     }
 
     /**
-     * @param $block
-     * @param $templateData
+     * @param string $block
+     * @param array $templateData
      * @return array
      */
     public function parseDocBlock(string $block, array $templateData) : array
