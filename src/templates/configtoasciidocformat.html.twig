@@ -1,0 +1,21 @@
+{% for block in blocks %}
+{% if block.section_header %}
+== {{ block.summary | trim }}
+{% else %}
+=== {{ block.summary | trim | raw }}
+{% endif %}
+{% if block.description %}
+
+{{ block.description | trim | raw }}
+{% endif %}
+{% if block.code|length %}
+
+==== Code Sample
+
+[source,php]
+....
+{{ block.code | trim | raw }}
+....
+{% endif %}
+
+{% endfor %}
