@@ -1,5 +1,7 @@
 # ownCloud config.sample.php to RST converter
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c5e375e4b4af47238dcb8fc234960da4)](https://www.codacy.com/app/settermjd/ownCloud-config-converter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=settermjd/ownCloud-config-converter&amp;utm_campaign=Badge_Grade)
+
 This script creates a RST file from the comments inside of config.sample.php.
 
 ## Requirements
