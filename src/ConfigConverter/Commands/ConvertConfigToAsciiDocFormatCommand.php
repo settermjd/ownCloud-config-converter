@@ -60,6 +60,11 @@ class ConvertConfigToAsciiDocFormatCommand extends Command
      */
     private $inputFilter;
 
+    /**
+     * ConvertConfigToAsciiDocFormatCommand constructor.
+     *
+     * @todo Supply inputFilter and renderer via constructor-injection
+     */
     public function __construct()
     {
         parent::__construct();
