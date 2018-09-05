@@ -25,6 +25,13 @@
         "zendframework/zend-expressive-template": "^2.0",
         "zendframework/zend-inputfilter": "^2.8"
     },
+    "require-dev": {
+        "mikey179/vfsStream": "^1.6",
+        "phpstan/phpstan": "^0.10.3",
+        "phpunit/phpunit": "^7.3",
+        "squizlabs/php_codesniffer": "*",
+        "symfony/framework-bundle": "^4.1"
+    },
     "scripts": {
         "check": [
             "@cs-check",
@@ -37,12 +44,5 @@
         "cs-fix": "vendor/bin/phpcbf",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
-    },
-    "require-dev": {
-        "mikey179/vfsStream": "^1.6",
-        "phpstan/phpstan": "^0.10.3",
-        "phpunit/phpunit": "^7.3",
-        "squizlabs/php_codesniffer": "*",
-        "symfony/framework-bundle": "^4.1"
     }
 }
