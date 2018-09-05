@@ -214,7 +214,7 @@ is used. For more details please see that key.',
     {
 
         $command = new ConvertConfigToAsciiDocFormatCommand();
-        $this->assertSame([$parsedData], $command->parseBlock($rawData, []));
+        $this->assertSame([$parsedData], $command->parseDocBlock($rawData, []));
     }
 
     public function testExecute()

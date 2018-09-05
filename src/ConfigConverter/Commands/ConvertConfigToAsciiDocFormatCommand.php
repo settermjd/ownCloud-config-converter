@@ -129,7 +129,7 @@ class ConvertConfigToAsciiDocFormatCommand extends Command
      * @param $content
      * @return array
      */
-    protected function extractCoreContent($content)
+    protected function extractCoreContent(string $content) : array
     {
         preg_match_all(self::FILTER_REGEX, $content, $matches, PREG_PATTERN_ORDER, 0);
 
@@ -144,7 +144,7 @@ class ConvertConfigToAsciiDocFormatCommand extends Command
      * @param string $tag
      * returns string
      */
-    public function convertFile($inputFile, $outputFile)
+    public function convertFile(string $inputFile, string $outputFile)
     {
         $templateData = [];
         $blocks = $this->extractCoreContent(file_get_contents($inputFile));
@@ -162,7 +162,7 @@ class ConvertConfigToAsciiDocFormatCommand extends Command
      * @param $codeBlock
      * @return array
      */
-    public function buildRowItem($docBlock, $codeBlock = null)
+    public function buildRowItem(string $docBlock, string $codeBlock = null) : array
     {
         $this->inputFilter->setData([
             'summary' => $this->phpDoc->create($docBlock)->getSummary(),
@@ -184,7 +184,7 @@ class ConvertConfigToAsciiDocFormatCommand extends Command
      * @param $outputFile
      * @param $templateData
      */
-    protected function writeOutputFile($outputFile, $templateData)
+    protected function writeOutputFile(string $outputFile, array $templateData)
     {
         file_put_contents(
             $outputFile,
@@ -197,7 +197,7 @@ class ConvertConfigToAsciiDocFormatCommand extends Command
      * @param $templateData
      * @return array
      */
-    public function parseBlock($block, $templateData)
+    public function parseDocBlock(string $block, array $templateData) : array
     {
         if (trim($block, " \t\n\r\0\x0B") !== '') {
             $block = '/**' . $block;
@@ -220,7 +220,7 @@ class ConvertConfigToAsciiDocFormatCommand extends Command
     /**
      * @return InputFilter
      */
-    protected function buildInputFilter()
+    protected function buildInputFilter() : InputFilter
     {
         $descriptionInput = (new Input('description'));
         $descriptionInput->getFilterChain()
