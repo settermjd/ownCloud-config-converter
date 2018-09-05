@@ -1658,6 +1658,7 @@ innodb_file_format=Barracuda
 innodb_file_per_table=ON
 
 Tables will be created with
+
  * character set: utf8mb4
  * collation:     utf8mb4_bin
  * row_format:    compressed
@@ -1682,6 +1683,7 @@ See:
 Database types that are supported for installation.
 
 Available:
+
 - sqlite (SQLite3 - Not in Enterprise Edition)
 - mysql (MySQL)
 - pgsql (PostgreSQL)
@@ -1752,7 +1754,8 @@ Excluded directory names are queried at any path part like at the beginning,
 in the middle or at the end and will not be further processed if found.
 Please see the documentation for details and examples.
 Use when the storage backend supports eg snapshot directories to be excluded.
-WARNING: USE THIS ONLY IF YOU KNOW WHAT YOU ARE DOING.
+
+WARNING: Use this only if you know what you are doing.
 
 ==== Code Sample
 
@@ -1858,11 +1861,11 @@ Specifies how often the local filesystem (the ownCloud data/ directory, and
 NFS mounts in data/) is checked for changes made outside ownCloud. This
 does not apply to external storages.
 
-0: Never check the filesystem for outside changes, provides a performance
+`0`: Never check the filesystem for outside changes, provides a performance
 increase when it's certain that no changes are made directly to the
 filesystem.
 
-1: Check each file or folder at most once per request, recommended for
+`1`: Check each file or folder at most once per request, recommended for
 general use if outside changes might happen.
 
 ==== Code Sample
@@ -1942,13 +1945,13 @@ otherwise defaults to `HTTP_X_FORWARDED_FOR` (the `X-Forwarded-For` header).
 === forwarded_for_headers
 
 Headers that should be trusted as client IP address in combination with
-`trusted_proxies`. If the HTTP header looks like 'X-Forwarded-For', then use
-'HTTP_X_FORWARDED_FOR' here.
+`trusted_proxies`. If the HTTP header looks like `X-Forwarded-For`, then use
+`HTTP_X_FORWARDED_FOR` here.
 
 If set incorrectly, a client can spoof their IP address as visible to
 ownCloud, bypassing access controls and making logs useless!
 
-Defaults to 'HTTP_X_FORWARDED_FOR' if unset
+Defaults to `HTTP_X_FORWARDED_FOR` if unset
 
 ==== Code Sample
 
@@ -2032,7 +2035,7 @@ Disable the web based updater.
 
 === upgrade.automatic-app-update
 
-Automatic update of market apps, set to "false" to disable.
+Automatic update of market apps, set to `false` to disable.
 
 ==== Code Sample
 
@@ -2064,9 +2067,8 @@ WARNING: Be warned that, if you set this to `true`, exceptions display
 Sets the data-fingerprint of the current data served.
 
 This is a property used by the clients to find out if a backup has been
-restored on the server. Once a backup is restored run
-./occ maintenance:data-fingerprint
-To set this to a new value.
+restored on the server. Once a backup is restored run `./occ maintenance:data-fingerprint`
+to set this to a new value.
 
 Updating/Deleting this value can make connected clients stall until
 the user has resolved conflicts.
