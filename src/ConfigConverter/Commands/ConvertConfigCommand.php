@@ -2,9 +2,9 @@
 /**
  * The MIT License (MIT)
  *
- * @author Morris Jobke <hey@morrisjobke.de>
- * @author Matthew Setter <matthew@matthewsetter.com>
- * @copyright Copyright (c) 2018, ownCloud GmbH
+ * @author    Morris Jobke <hey@morrisjobke.de>
+ * @author    Matthew Setter <matthew@matthewsetter.com>
+ * @copyright 2018 ownCloud GmbH
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class ConvertConfigCommand
- * It extracts the code comments out of ownCloud's config/config.sample.php and creates an RST document.
+ * It extracts the code comments out of ownCloud's
+ * config/config.sample.php and creates an RST document.
  *
  * @package ConfigConverter\Commands
  */
@@ -42,7 +43,7 @@ class ConvertConfigCommand extends Command
     /**
      * The core of the command
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -62,37 +63,51 @@ class ConvertConfigCommand extends Command
         $this
             ->setName('config:convert')
             ->setDescription('Converts config.sample.php to config_sample_php_parameters.rst')
-            ->setDefinition([
-                new InputOption('input-file', 'i', InputOption::VALUE_REQUIRED,
-                    'The location of config.sample.php'),
-                new InputOption('output-file', 'o', InputOption::VALUE_REQUIRED,
-                    'The location of config_sample_php_parameters.rst'),
-                new InputOption('tag', 't', InputOption::VALUE_OPTIONAL,
-                    'Tag to use for copying a config entry (default: see)'),
-            ])
+            ->setDefinition(
+                [
+                new InputOption(
+                    'input-file',
+                    'i',
+                    InputOption::VALUE_REQUIRED,
+                    'The location of config.sample.php'
+                ),
+                new InputOption(
+                    'output-file',
+                    'o',
+                    InputOption::VALUE_REQUIRED,
+                    'The location of config_sample_php_parameters.rst'
+                ),
+                new InputOption(
+                    'tag',
+                    't',
+                    InputOption::VALUE_OPTIONAL,
+                    'Tag to use for copying a config entry (default: see)'
+                ),
+                ]
+            )
             ->setHelp('Converts config.sample.php to config_sample_php_parameters.rst');
     }
 
     /**
-     * @param $string
+     * @param string $content
      * @return mixed|string
      */
-    public function escapeRST($string)
+    public function escapeRST($content)
     {
-        # just replace all \ by \\ if there is no code block present
-        if (strpos($string, '``') === false) {
-            return str_replace('\\', '\\\\', $string);
+        // just replace all \ by \\ if there is no code block present
+        if (strpos($content, '``') === false) {
+            return str_replace('\\', '\\\\', $content);
         }
 
-        $parts = explode('``', $string);
+        $parts = explode('``', $content);
 
         foreach ($parts as $key => &$part) {
-            # just even parts are outside of the code block
-            # example:
-            #
-            # 	Test code: ``$my = $code + 5;`` shows that ...
-            #
-            # The code part has the id 1 and is an odd number
+            // just even parts are outside of the code block
+            // example:
+            //
+            // Test code: ``$my = $code + 5;`` shows that ...
+            //
+            // The code part has the id 1 and is an odd number
             if ($key % 2 == 0) {
                 str_replace('\\', '\\\\', $part);
             }
