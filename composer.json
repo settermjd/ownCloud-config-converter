@@ -25,6 +25,19 @@
         "zendframework/zend-expressive-template": "^2.0",
         "zendframework/zend-inputfilter": "^2.8"
     },
+    "scripts": {
+        "check": [
+            "@cs-check",
+            "@cs-analyze",
+            "@test",
+            "@analyze"
+        ],
+        "analyze": "vendor/bin/phpstan analyze",
+        "cs-check": "vendor/bin/phpcs",
+        "cs-fix": "vendor/bin/phpcbf",
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    },
     "require-dev": {
         "mikey179/vfsStream": "^1.6",
         "phpstan/phpstan": "^0.10.3",
