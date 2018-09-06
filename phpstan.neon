@@ -1,0 +1,9 @@
+parameters:
+    excludes_analyse:
+        - %currentWorkingDirectory%/vendor/*
+        - %currentWorkingDirectory%/data/*
+    fileExtensions:
+        - php
+    level: max
+    paths:
+        - src
